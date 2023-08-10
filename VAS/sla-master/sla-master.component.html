@@ -1,0 +1,108 @@
+<kt-portlet>
+    <ng-container>
+        <div class="row headerRowPadding">
+            <div class="col-md-4 col-sm-12">
+                <h5 class="commonFontSize">
+                    <b> SLA Master </b> &nbsp;
+                </h5>
+            </div>
+            <div class="col-md-4 col-sm-12">
+            </div>
+        </div>
+        <div>
+            <hr class="hrHeaderMargin">
+        </div>
+    </ng-container>
+
+    <kt-portlet-body>
+        <form class="vForm" (submit)="SLAAddEdit()" autocomplete="off">
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="Enter Discription" type="text" [(ngModel)]="SLADesc" name="Discription" #Discription="ngModel" required>
+                        <mat-error *ngIf="Discription.errors?.required">
+                            Please Enter Discription
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="Enter Value" type="text" [(ngModel)]="SLAValue" name="Value" #Value="ngModel" (keypress)="numberOnly($event)" required>
+
+                        <!-- <input matInput type="text" placeholder="Value" name="SLAValue" #SLAValue="ngModel" [(ngModel)]="Value" [formControl]="SLAValue"
+              autocomplete="off" required> -->
+                        <mat-error *ngIf="Value.errors?.required">
+                            Please Enter Value
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-3">
+                    <button type="submit" mat-raised-button color="primary" style="margin-right: 5%;">Save</button>
+                    <button type="button" mat-raised-button>Cancel</button>
+                </div>
+            </div>
+        </form>
+    </kt-portlet-body>
+</kt-portlet>
+
+<kt-portlet>
+    <ng-container>
+        <div class="row headerRowPadding">
+            <div class="col-md-4 col-sm-12">
+                <h5 class="commonFontSize">
+                    <b> List View </b> &nbsp;
+                </h5>
+            </div>
+            <div class="col-md-4 col-sm-12">
+            </div>
+        </div>
+        <div>
+            <hr class="hrHeaderMargin">
+        </div>
+    </ng-container>
+    <kt-portlet-body>
+        <div class="col-md-12" style="width: 100%;">
+            <mat-table [dataSource]="DataSource" matSort>
+                <ng-container matColumnDef="SrNo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Sr.No </mat-header-cell>
+                    <mat-cell *matCellDef="let row; let SrNo = index;"> {{SrNo + 1}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="SLADesc">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> SLA Description </mat-header-cell>
+                    <mat-cell *matCellDef="let row;"> {{row.SLADesc}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="SLAValue">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> SLA Value </mat-header-cell>
+                    <mat-cell *matCellDef="let row;"> {{row.SLAValue}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                    <mat-cell *matCellDef="let row;">
+                        <a *ngIf="row.IsActive == 1" (click)="ChangeStatus(row)" class="edit" title="Change Status"><i
+                class="fa fa-toggle-on"></i></a>
+                        <a *ngIf="row.IsActive == 0" (click)="ChangeStatus(row)" class="trash" title="Change Status"><i
+                class="fa fa-toggle-off">
+              </i></a>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                    <mat-cell *matCellDef="let row;">
+                        <a (click)="GetData(row)" class="edit" title="Edit"><i class="fa fa-edit" style="color: #5d78ff;"></i></a>
+                        <a (click)="DeleteSLA(row)" class="trash" title="Delete"><i class="fa fa-trash" style="color: red">
+              </i></a>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayed"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayed;"></mat-row>
+            </mat-table>
+            <div *ngIf="!DataSource.data.length">
+                <h6 class="noRecordData"> No Record Found </h6>
+            </div>
+            <mat-paginator [pageSize]="15" [pageSizeOptions]="[10, 15, 20, 30, 50]"></mat-paginator>
+        </div>
+    </kt-portlet-body>
+</kt-portlet>

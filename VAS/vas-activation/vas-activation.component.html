@@ -1,0 +1,290 @@
+<kt-portlet>
+    <kt-portlet-body>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 middleDiv">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="row" style="padding-left: 10px;">
+                            <span> VAS Consumers: </span>&nbsp;
+                            <a class="a-link-color" (click)="filterData('All')">
+                                <h5 style="color: #5d78ff !important;">{{Counts.VASConsumer ? Counts.VASConsumer:0}}
+                                </h5>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- <span class="SB-block-Desc"> VAS </span> -->
+                    <div class="col-md-4 col-sm-12">
+                        <div class="row" style="padding-left: 10px;">
+                            <span> Active: </span>&nbsp;
+                            <a class="a-link-color" (click)="filterData('Active')">
+                                <h5 style="color: #5d78ff !important;">{{Counts.ActiveCount ? Counts.ActiveCount:0}}
+                                </h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="row" style="padding-left: 10px;">
+                            <span> Expired: </span>&nbsp;
+                            <a class="SB-block-Count a-link-color" (click)="filterData('Expired')">
+                                <h5 style="color: #5d78ff !important;">{{Counts.ExpConsCount ? Counts.ExpConsCount:0}}
+                                </h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 middleDiv">
+                <kt-portlet>
+                    <div id="boxshadow">
+                        <div class="bg-white">
+                            <div class="row" align="center">
+                                <div class="CustBlockHeader col-md-12 text-center">
+                                    <span> Bookings </span>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <a>
+                                        <h5>{{Counts.PendingBookings ? Counts.PendingBookings:0}}
+                                        </h5>
+                                    </a>
+                                    <span> Pending </span>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <a>
+                                        <h5>{{Counts.AssignBookingCnt ? Counts.AssignBookingCnt:0}}
+                                        </h5>
+                                    </a>
+                                    <span> Alloted </span>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <a>
+                                        <h5>{{Counts.DueBookingCnt ? Counts.DueBookingCnt:0}}
+                                        </h5>
+                                    </a>
+                                    <span> Due </span>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <a>
+                                        <h5>{{Counts.DelBookingCnt ? Counts.DelBookingCnt:0}}
+                                        </h5>
+                                    </a>
+                                    <span> Deliverd </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </kt-portlet>
+            </div>
+            <div class="col-md-4 col-sm-12 middleDiv">
+                <kt-portlet>
+                    <div id="boxshadow">
+                        <div class="bg-white">
+                            <div class="row" align="center">
+                                <div class="commonClass col-md-12 text-center">
+                                    <span> Service Request</span>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <a>
+                                        <h5 class="commonFontSize">{{Counts.NoServiceDoneCnt? Counts.NoServiceDoneCnt:0}}
+                                        </h5>
+                                    </a>
+                                    <span> S1 </span>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <a>
+                                        <h5 class="commonFontSize">{{Counts.Service1DoneCnt? Counts.Service1DoneCnt:0}}
+                                        </h5>
+                                    </a>
+                                    <span> S2 </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </kt-portlet>
+            </div>
+            <div class="col-md-4 col-sm-12 middleDiv">
+                <kt-portlet>
+                    <div id="boxshadow">
+                        <div class="bg-white">
+                            <div class="row" align="center">
+                                <div class="commonClass col-md-12 text-center">
+                                    <span> Todays Requests</span>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <a>
+                                        <h5 class="commonFontSize">{{Counts.PendingSRCnt? Counts.PendingSRCnt:0}}
+                                        </h5>
+                                    </a>
+                                    <span> Pending </span>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <a>
+                                        <h5 class="commonFontSize">{{Counts.TodayCompSR? Counts.TodayCompSR:0}}
+                                        </h5>
+                                    </a>
+                                    <span> Completed </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </kt-portlet>
+            </div>
+        </div>
+    </kt-portlet-body>
+</kt-portlet>
+
+<kt-portlet>
+    <ng-container>
+        <div class="row headerRowPadding">
+            <div class="col-md-4 col-sm-12">
+                <h5 class="commonFontSize">
+                    <b> VAS Activation </b> &nbsp;
+                </h5>
+            </div>
+            <div class="col-md-4 col-sm-12">
+            </div>
+        </div>
+        <div>
+            <hr class="hrHeaderMargin">
+        </div>
+    </ng-container>
+
+    <kt-portlet-body>
+        <form class="vForm" (submit)="savedata()" autocomplete="off">
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <input matInput placeholder="Consumer Number" type="text" [(ngModel)]="ConsumerNo" name="ConsumerNumber" (keypress)="numberOnly($event)" #ConsumerNumber="ngModel" required maxlength="6" [disabled]="disable">
+                        <mat-error *ngIf="ConsumerNumber.errors?.required">
+                            Please Enter Consumer Number
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- <div class="col-md-3">
+          <button type="submit" mat-raised-button color="primary" style="margin-right: 5%;">Get Details</button>
+        </div> -->
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <input matInput placeholder="Consumer Name" type="text" [(ngModel)]="ConsumerName" name="Name" #Name="ngModel" required>
+                        <mat-error *ngIf="Name.errors?.required">
+                            Please Enter Consumer Name
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <input matInput placeholder="Consumer Contact" type="text" [(ngModel)]="ConsumerContact" name="Contact" (keypress)="numberOnly($event)" #Contact="ngModel" required maxlength="10">
+                        <mat-error *ngIf="Contact.errors?.required">
+                            Please Enter Contact Number
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label> Date <span class="text-danger">*</span></mat-label>
+                        <input matInput [matDatepicker]="picker" name="RegistrationDate" [(ngModel)]="RegistrationDate" [value]="RegistrationDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <input matInput placeholder="Area Name" type="text" [(ngModel)]="AreaName" name="Area">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Consumer Address" type="text" [(ngModel)]="ConsAddr" name="Address">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9"></div>
+                <div class="col-md-3">
+                    <button type="submit" mat-raised-button color="primary" style="margin-right: 5%;">Save</button>
+                    <button type="button" mat-raised-button (click)="clearData()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </kt-portlet-body>
+</kt-portlet>
+
+<kt-portlet>
+    <ng-container>
+        <div class="row headerRowPadding">
+            <div class="col-md-4 col-sm-12">
+                <h5 class="commonFontSize">
+                    <b> VAS Activated Consumers List </b> &nbsp;
+                </h5>
+            </div>
+            <div class="col-md-4 col-sm-12">
+            </div>
+        </div>
+        <div>
+            <hr class="hrHeaderMargin">
+        </div>
+    </ng-container>
+    <kt-portlet-body>
+        <div class="col-md-12">
+            <table mat-table [dataSource]="DataSource" matSort>
+                <ng-container matColumnDef="SrNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sr.No </th>
+                    <td mat-cell *matCellDef="let row; let SrNo = index;"> {{SrNo + 1}} </td>
+                </ng-container>
+                <ng-container matColumnDef="ConsumerNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Consumer No. </th>
+                    <td mat-cell *matCellDef="let row;"> {{row.ConsumerNo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="ConsumerName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Consumer Name </th>
+                    <td mat-cell *matCellDef="let row;"> {{row.ConsumerName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="MobileNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile No. </th>
+                    <td mat-cell *matCellDef="let row;"> {{row.MobileNo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="RegistrationDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Reg. Date </th>
+                    <td mat-cell *matCellDef="let row;"> {{row.RegistrationDate | date: 'dd-MM-yyyy'}} </td>
+                </ng-container>
+                <!-- <ng-container matColumnDef="DistributorCode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Distributor Code </th>
+                    <td mat-cell *matCellDef="let row;"> {{row.DistributorCode}} </td>
+                </ng-container>
+                <ng-container matColumnDef="DistributorName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Distributor Name </th>
+                    <td mat-cell *matCellDef="let row;"> {{row.DistributorName}} </td>
+                </ng-container> -->
+                <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                    <td mat-cell *matCellDef="let row;">
+                        <span *ngIf="row.Status === 1"> Active </span>
+                        <span *ngIf="row.Status === 0"> Deactive </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                    <td mat-cell *matCellDef="let row;">
+                        <a (click)="setdata(row)" class="edit" title="Edit"><i class="fa fa-edit"
+								style="color: #5d78ff;"></i></a>
+                        <a (click)="changeStatus(row)" class="trash" title="Change Status"><i class="fa fa-trash"
+								style="color: red">
+							</i></a>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+            </table>
+            <div *ngIf="!DataSource.data.length">
+                <h6 class="noRecordData"> No Record Found </h6>
+            </div>
+            <mat-paginator [pageSize]="15" [pageSizeOptions]="[10, 15, 20, 30, 50]"></mat-paginator>
+        </div>
+    </kt-portlet-body>
+</kt-portlet>
+
+<mat-progress-spinner color="primary" *ngIf="isLoading" mode="indeterminate" class="spin" diameter="40" strokeWidth="4">
+</mat-progress-spinner>

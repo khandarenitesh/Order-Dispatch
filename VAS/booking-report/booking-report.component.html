@@ -1,0 +1,107 @@
+<kt-portlet>
+	<kt-portlet-header [title]="'Booking Report List'">
+		<ng-container ktPortletTools>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<mat-form-field class="searchField">
+				<span class="GlobalSearch" matPrefix>
+					<mat-icon>search</mat-icon> &nbsp;
+				</span>
+				<input matInput name="searchModel" [(ngModel)]="searchModel" (keyup)="applyFilter()" placeholder="Search">
+			</mat-form-field>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+	<ng-container>
+		<div class="row"> &nbsp;&nbsp;&nbsp;
+			<div class="col-md-3 col-lg-2 col-sm-12">
+				<mat-form-field>
+					<mat-label>From Date </mat-label>
+					<input matInput [matDatepicker]="datepicker"  [max]="maxDate" datePickerFormat="DD/MM/YYYY" placeholder="Select From Date" [(ngModel)]="FromDate" name="FromDate" readonly>
+					<mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+					<mat-datepicker #datepicker></mat-datepicker>
+				</mat-form-field>
+			</div>
+			<div class="col-md-3 col-lg-2 col-sm-12">
+				<mat-form-field>
+					<mat-label>To Date </mat-label>
+					<input matInput [matDatepicker]="datepicker1" [max]="maxDate" datePickerFormat="DD/MM/YYYiuY" placeholder="Select To Date" [(ngModel)]="Todate" name="Todate" readonly>
+					<mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+					<mat-datepicker #datepicker1></mat-datepicker>
+				</mat-form-field>
+			</div>&nbsp;&nbsp;&nbsp;
+			<div class="col-md-6">
+				<button style="margin-bottom: 7px;font-size: 16px;" type="submit" class="btn btn-sm btn-info" style="cursor:pointer;"
+					(click)="GetBookingReportList()"> Submit
+				</button>
+			</div>
+			<div>
+				<button title="Export to Excel" mat-raised-button (click)="exportAsExcel()" style="color: rgb(111, 81, 5);">
+					<i class="fa fa-2x fa-file-excel green-color"></i> Export
+				</button>
+			</div>
+		</div>
+	</ng-container>
+
+	<div class="col-md-12" style="width: 100%;" #TABLE>
+				<table mat-table [dataSource]="DataSource" matSort #sort1="matSort" style="width: 100%;">
+
+					<ng-container matColumnDef="SrNo">
+                        <th mat-header-cell *matHeaderCellDef class="commonHeaderCSS"> Sr. No. </th>
+                        <td mat-cell *matCellDef="let row;let SrNo = index;">
+                            {{ ( SrNo + 1 ) + ( paginator.pageIndex * paginator.pageSize ) }} </td>
+                    </ng-container>
+
+				<ng-container matColumnDef="ConsumerNo">
+				  <th mat-header-cell *matHeaderCellDef mat-sort-header>Consumer No.</th>
+				  <td mat-cell *matCellDef="let row"> {{row.ConsumerNo}}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="ConsumerName">
+				  <th mat-header-cell *matHeaderCellDef mat-sort-header>Consumer Name</th>
+				  <td mat-cell *matCellDef="let row"> {{row.ConsumerName}} </td>
+				</ng-container>
+
+				<ng-container matColumnDef="MobileNo">
+				  <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact No.</th>
+				  <td mat-cell *matCellDef="let row"> {{row.MobileNo}} </td>
+				</ng-container>
+
+				<ng-container matColumnDef="MobNo">
+				  <th mat-header-cell *matHeaderCellDef mat-sort-header>Mobile No.</th>
+				  <td mat-cell *matCellDef="let row"> {{row.MobNo}} </td>
+				</ng-container>
+
+				<ng-container matColumnDef="OrderNo">
+				  <th mat-header-cell *matHeaderCellDef mat-sort-header>Order No.</th>
+				  <td mat-cell *matCellDef="let row"> {{row.OrderNo}} </td>
+				</ng-container>
+
+				<ng-container matColumnDef="OrderDate">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>Order Date</th>
+					<td mat-cell *matCellDef="let row">
+						{{row.OrderDate | date: 'dd/MM/yyyy'}}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="ActualDelDate">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header> Actual Delivery Date </th>
+					<td mat-cell *matCellDef="let row">
+						<span *ngIf="(row.ActualDelDate !== '0001-01-01T00:00:00')">
+							{{row.ActualDelDate | date: 'dd/MM/yyyy'}}
+						  </span>
+						</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="ColumnArray;sticky: true"></tr>
+				<tr mat-row *matRowDef="let row; columns: ColumnArray;"></tr>
+			  </table>
+			  <div *ngIf="!DataSource.data.length">
+				<h6 class="noRecordData"> No Record Found </h6>
+			  </div>
+			  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[20, 30, 40, 50]">
+			  </mat-paginator>
+			  <mat-progress-spinner color="primary" *ngIf="isLoading" mode="indeterminate" class="spin" diameter="40" strokeWidth="5">
+			  </mat-progress-spinner>
+			</div>
+</kt-portlet-body>
+
+</kt-portlet>

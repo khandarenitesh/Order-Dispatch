@@ -1,0 +1,63 @@
+.spin {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	margin: 0;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.mat-icon {
+	color: #335de7;
+}
+
+::ng-deep
+	.mat-sort-header-container:not(.mat-sort-header-sorted)
+	.mat-sort-header-arrow {
+	opacity: 0.54 !important;
+	transform: translateY(0px) !important;
+}
+.mat-column-SrNo {
+	flex: 0px 0px 8% !important;
+	width: 3%;
+}
+.mat-column-ConsumerNo {
+	flex: 0px 0px 8% !important;
+	width: 6%;
+}
+.mat-column-ConsumerName {
+	flex: 0px 0px 8% !important;
+	width: 10%;
+}
+.mat-column-MobNo {
+	flex: 0px 0px 8% !important;
+	width: 6%;
+}
+.mat-column-OrderNo {
+	flex: 0px 0px 8%;
+	width: 6%;
+}
+.mat-column-OrderDate {
+	flex: 0px 0px 8%;
+	width: 6%;
+}
+.mat-column-ActualDelDate {
+	flex: 0px 0px 8%;
+	width: 6%;
+}
+
+.a-link-color {
+	color: #335de7 !important;
+	cursor: pointer !important;
+}
+
+h5 {
+	color: #335de7 !important;
+	margin-bottom: 0.1rem;
+}
