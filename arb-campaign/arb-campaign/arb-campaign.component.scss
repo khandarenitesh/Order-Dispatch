@@ -1,0 +1,138 @@
+.disable:hover {
+    cursor: not-allowed;
+  }
+
+  .disable:active {
+    pointer-events: none;
+  }
+
+  .starColor {
+    color: orangered !important;
+    font-size: 16px !important;
+  }
+
+  .btn-sds-submit {
+    font-family: "Open Sans", sans-serif !important;
+    font-weight: 400;
+    color: #fff !important;
+    background-color: #5867dd !important;
+    border-color: #5867dd !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    border-radius: 0.2rem !important;
+  }
+
+  .btn-sds-submit:hover {
+    color: #fff !important;
+    background-color: #335de7 !important;
+    border-color: #2754e6 !important;
+  }
+
+  .btn-sds-reset {
+    font-family: "Open Sans", sans-serif !important;
+    color: rgba(0, 0, 0, 0.87) !important;
+    background-color: #fff !important;
+    border: 1px solid black !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    border-radius: 0.2rem !important;
+  }
+
+  button.btn.btn-sds-reset.mat-raised-button :focus {
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 5px 0px rgba(0, 0, 0, 0.12) !important;
+  }
+
+  .mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .mat-column-SrNo {
+    flex: 0px 0px 10% !important;
+    width: 0%;
+  }
+
+  .mat-column-GroupName {
+    flex: 0px 0px 6% !important;
+    width: 8%;
+  }
+
+  .mat-column-DistributorName {
+    flex: 0px 0px 10% !important;
+  }
+
+  .mat-column-TemplateName {
+    flex: 0px 0px 10% !important;
+    width: 11%;
+  }
+
+  .mat-column-TotalConsumer {
+    flex: 0px 0px 10% !important;
+    width: 8%;
+  }
+
+  .mat-column-NonWhatsAppNo {
+    flex: 0px 0px 10% !important;
+    width: 8%;
+  }
+
+  .mat-column-TotalSend {
+    flex: 0px 0px 10% !important;
+    width: 7%;
+  }
+
+  .mat-column-Balanced {
+    flex: 0px 0px 10% !important;
+    width: 8%;
+  }
+
+  .mat-column-ScheduleQty {
+    flex: 0px 0px 10% !important;
+    width: 7%;
+  }
+
+  .mat-column-Status {
+    flex: 0px 0px 8% !important;
+    width: 8%;
+  }
+
+  .mat-column-Actions {
+    flex: 0px 0px 10% !important;
+    width: 6%;
+  }
+
+  .selectionList {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .align-items-center {
+    padding-top: 5px;
+  }
+
+  tr.example-element-row:hover {
+    cursor: pointer;
+    background: whitesmoke;
+  }
+
+  .spin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height:100%;
+    z-index: 1;
+    margin: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+

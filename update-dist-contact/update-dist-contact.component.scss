@@ -1,0 +1,35 @@
+.mat-icon {
+    color: #335de7;
+}
+
+.mat-row:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.afaEdit {
+    font-size: medium;
+}
+
+.CustomCommonFont {
+    font-size: medium;
+}
+
+.spin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    margin: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.clear-buttton {
+    margin-right: 5%;
+}

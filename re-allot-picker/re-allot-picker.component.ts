@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AppCode } from 'src/app/app.code';
@@ -17,7 +18,7 @@ import { OrderDispatchService } from '../Services/order-dispatch.service';
 })
 export class ReAllotPickerComponent implements OnInit {
 
-  displayedColumnsForApi = ['SrNo', 'PicklistNo', 'PicklistDate', 'FromInv', 'ToInv', 'PickerName', 'StatusText', 'Actions'];
+  displayedColumnsForApi = ['SrNo', 'PicklistNo', 'PicklistDate', 'FromInv', 'ToInv', 'PickerName', 'StatusText','PickListAddFlag', 'Actions'];
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild('Sort') Sort: MatSort;
   public DataSource = new MatTableDataSource<any>();
@@ -62,12 +63,14 @@ export class ReAllotPickerComponent implements OnInit {
   searchModel: any;
   PickList: any;
   PicklistData: any[] = [];
+  id: any;
 
   constructor(
     private chRef: ChangeDetectorRef,
     private _orderDispatchService: OrderDispatchService,
     private modalService: NgbModal,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -91,6 +94,14 @@ export class ReAllotPickerComponent implements OnInit {
     };
     this.GetPickList(this.DataModel);
     this.GetPickListCounts(this.DataModel);
+
+    this.id = this.route.snapshot.paramMap.get('id');
+    if(this.id == 1){
+      this.id = this.id;
+      console.log('Id Received From Stock Transfer! =  ', this.id)
+    }else if(this.id == null || this.id =='' || this.id == undefined){
+      this.id = this.id=0;
+    }
   }
 
   // Get PickList Counts

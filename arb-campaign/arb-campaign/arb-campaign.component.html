@@ -1,0 +1,368 @@
+<!-- <kt-portlet>
+  <kt-portlet-body>
+    <div class="row">
+      <div class="col-md-4 col-sm-12 middleDiv">
+        <kt-portlet>
+          <div id="boxshadow">
+            <div class="bg-white">
+              <div class="row" align="center">
+                <div class="col-md-4 text-center">
+                  <a style="text-decoration: underline; color: blue; cursor: pointer;" title="Total SBC">
+                    <h5> {{ _ConfigurationDetailsMasterModel.TotalSBC }} </h5>
+                  </a>
+                  <span class="SB-block-Desc"> Total SBC </span>
+                </div>
+                <div class="col-md-4 text-center">
+                  <a style="text-decoration: underline; color: blue; cursor: pointer;" title="Message Sent">
+                    <h5> {{ _ConfigurationDetailsMasterModel.MessageSent }} </h5>
+                  </a>
+                  <span class="SB-block-Desc"> Message Sent </span>
+                </div>
+                <div class="col-md-4 text-center">
+                  <a style="text-decoration: underline; color: blue; cursor: pointer;" title="Message Pending">
+                    <h5> {{ _ConfigurationDetailsMasterModel.MessagePending }} </h5>
+                  </a>
+                  <span class="SB-block-Desc"> Message Pending </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </kt-portlet>
+      </div>
+    </div>
+  </kt-portlet-body>
+</kt-portlet> -->
+
+<div class="col-xl-12">
+	<kt-portlet [class]="'kt-portlet--height-fluid'">
+	  <!-- <kt-portlet-header [title]=Title></kt-portlet-header> -->
+	  <kt-portlet-body>
+
+		  <!-- 1st Row -->
+		  <div class="row">
+			<div class="col-md-2 col-sm-12">
+			  <form>
+				<mat-form-field>
+				  <mat-label>Select Sales Area(SA)<span class="starColor"></span></mat-label>
+				  <mat-select placeholder="Select SA" name="SelectedSA" [(ngModel)]='SelectedSA'
+							  (ngModelChange)="onChangeBindDistributorList()"  #SA="ngModel" required>
+					<mat-option *ngFor="let SA of SAList" [value]="SA.SACode">
+					  {{ SA.SAName }}
+					</mat-option>
+				  </mat-select>
+				  <mat-error *ngIf="SA.errors?.required && SA.touched">
+					Please Select Sales Area
+				  </mat-error>
+				</mat-form-field>
+			  </form>
+			</div>
+
+			  <!-- Select Group -->
+			  <div class="row col-md-3 col-lg-3 col-sm-12">
+				<form>
+				  <mat-form-field class="example-full-width">
+					<mat-label> Select Group </mat-label>
+					<input type="text" placeholder="Select Group" matInput [formControl]="myControlGroup"
+						   [matAutocomplete]="autoGroupTemplate" name="SelectedGroup" [(ngModel)]="SelectedGroup" (ngModelChange)="onChangeBindGroupByDistributorList()">
+					<mat-autocomplete #autoGroupTemplate="matAutocomplete" [displayWith]="displayFnGroup">
+					  <mat-option *ngFor="let option of filteredGroupOptions | async" [value]="option">
+						{{ option.GroupName }}
+					  </mat-option>
+					</mat-autocomplete>
+				  </mat-form-field>
+				</form>
+				<div *ngIf="isEdit === false">
+				  <button type="submit" class="btn btn-primary" title="Add Group" (click)="openModal(openModalData)" style="padding: 0%; margin-top: 30%;">
+					<mat-icon>add</mat-icon>
+				  </button>
+				</div>
+				<div *ngIf="isEdit === true">
+				  <button type="submit" class="btn btn-primary" title="Edit Group" (click)="openModal(openModalData)" style="padding: 0%; margin-top: 30%;">
+					<mat-icon>edit</mat-icon>
+				  </button>
+				</div>
+			  </div>
+			<div class="col-md-4 kt-margin-bottom-10-mobile">
+			  <div class="kt-form__control">
+				<mat-form-field class="example-full-width">
+				  <input type="text" placeholder="Selected Distributors" matInput [formControl]="myControlDistributor" [matAutocomplete]="autoDistributorTemplate"
+						 ngbTooltip="{{ tooltipMsgResult }}" tooltipClass="kt-tooltip" readonly>
+				</mat-form-field>
+				<mat-autocomplete #autoDistributorTemplate="matAutocomplete" [displayWith]="displayFnDistributor">
+				  <mat-option *ngFor="let option of filteredDistributorOptions | async" [value]="SelectedDistributor">
+					{{ option.DistributorName }}
+				  </mat-option>
+				</mat-autocomplete>
+			  </div>
+			</div>
+
+
+		  <div class="col-md-3 col-sm-12">
+			<form>
+			  <mat-form-field class="example-full-width">
+				<mat-label> Selected Template </mat-label>
+				<input type="text" placeholder="Selected Template" matInput [formControl]="myControlTemplate" readonly>
+			  </mat-form-field>
+			</form>
+		  </div>
+
+		  <!-- Schedule Date -->
+		  <div class="col-md-2 col-sm-12">
+			<mat-form-field>
+			  <input style="width:100px;padding-top:5px;font-size: 14px;" container='body' matInput
+					 [minDate]="_SBCConfigDetailsModel.ScheduleDate" [maxDate]="_SBCConfigDetailsModel.ScheduleDate" placeholder="Select Schedule Date"
+					 name="ScheduleDate" [(ngModel)]="_SBCConfigDetailsModel.ScheduleDate" ngbDatepicker #d1="ngbDatepicker"
+					 (click)="d1.toggle()">
+			  <mat-icon style="float:right;height:20px;width:20px;" (click)="d1.toggle()" svgIcon="calendar" title="Calendar"></mat-icon>
+			</mat-form-field>
+		  </div>
+
+		  <!-- Send Message -->
+		  <div class="col-md-2 col-sm-12">
+			<mat-form-field class="searchField">
+			 <input type="text" matInput placeholder="Enter Message Qty" name="SendMessageValue" (keypress)="numberOnly($event)"
+					name="MessageQty" [(ngModel)]="_ConfigurationDetailsMasterModel.SendMessageValue" #MessageQty="ngModel"
+					autocomplete="off" required />
+			  <mat-error *ngIf="MessageQty.errors?.required && MessageQty.touched">
+				Message Qty cannot be blank
+			  </mat-error>
+			</mat-form-field>
+		  </div>
+
+		  <div class="col-md-2 col-sm-12">
+			<mat-checkbox class="example-margin" [(ngModel)]="checked">Schedule Daily</mat-checkbox>
+		  </div>
+
+		</div>
+
+		<!-- 4th Row -->
+		<div class="row col-md-12">
+		  <div class="form-group">
+			<button type="submit" class="btn btn-sds-submit" mat-raised-button (click)="SaveConfigurationDetails()">
+			  Save
+			</button>
+			<button type="button" class="btn btn-sds-reset" mat-raised-button name="#dmap" (click)="ClearConfigurationDetails()" style="margin-left: 10px">
+			  Clear
+			</button>
+		  </div>
+		</div>
+
+	  </kt-portlet-body>
+	</kt-portlet>
+  </div>
+
+  <!-- SBC ConfigDetails List -->
+  <div class="col-md-12">
+	<kt-portlet>
+	  <kt-portlet-body>
+
+	  <div class="row col-md-12" *ngIf="DataSource.data.length > 0">
+		<button type="submit" class="btn btn-sds-submit" mat-raised-button [disabled]="isQueued === true"
+			   (click)="SendMessageAllConfigurationDetails()">
+		  <mat-icon> send </mat-icon> Send Message All
+		</button>
+	  </div>
+
+	  <table mat-table [dataSource]="DataSource" #Sort="matSort" matSort>
+
+		<ng-container matColumnDef="SrNo">
+		  <th mat-header-cell *matHeaderCellDef mat-sort-header> Sr.No. </th>
+		  <td mat-cell *matCellDef="let row;let SrNo = index;">
+			{{ ( SrNo + 1 ) + ( paginator.pageIndex * paginator.pageSize ) }}
+		  </td>
+		</ng-container>
+
+		<ng-container matColumnDef="GroupName">
+		  <th mat-header-cell *matHeaderCellDef mat-sort-header> Group Name </th>
+		  <td mat-cell *matCellDef="let row">
+			<div>
+			  {{ row.GroupName }}
+			</div>
+		  </td>
+		</ng-container>
+
+		<ng-container matColumnDef="DistributorName">
+		  <th mat-header-cell *matHeaderCellDef mat-sort-header> Distributor Name </th>
+		  <td mat-cell *matCellDef="let row">
+			<div>
+			  {{ row.DistributorName }}
+			</div>
+		  </td>
+		</ng-container>
+
+		<ng-container matColumnDef="TemplateName">
+		  <th mat-header-cell *matHeaderCellDef mat-sort-header> Template Name </th>
+		  <td mat-cell *matCellDef="let row">
+			<div>
+			  {{ row.TemplateName }}
+			</div>
+		  </td>
+		</ng-container>
+
+		<ng-container matColumnDef="TotalConsumer">
+		  <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Consumer </th>
+		  <td mat-cell *matCellDef="let row">
+			<div>
+			  {{ row.TotalConsumer }}
+			</div>
+		  </td>
+		</ng-container>
+
+		<ng-container matColumnDef="NonWhatsAppNo">
+		  <th mat-header-cell *matHeaderCellDef mat-sort-header> Non WhatsApp No. </th>
+		  <td mat-cell *matCellDef="let row">
+			<div>
+			  {{ row.NonWhatsAppNo }}
+			</div>
+		  </td>
+		</ng-container>
+
+		<ng-container matColumnDef="TotalSend">
+		  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+			<span ngbTooltip="Message Sent As Of Date" tooltipClass="kt-tooltip"> Message Sent </span>
+		  </th>
+		  <td mat-cell *matCellDef="let row">
+			<div>
+			  {{ row.TotalMsgSend }}
+			</div>
+		  </td>
+		</ng-container>
+
+		<ng-container matColumnDef="Balanced">
+		  <th mat-header-cell *matHeaderCellDef mat-sort-header> Balanced </th>
+		  <td mat-cell *matCellDef="let row">
+			<div>
+			  {{ row.Balanced }}
+			</div>
+		  </td>
+		</ng-container>
+
+		<ng-container matColumnDef="ScheduleQty">
+		  <th mat-header-cell *matHeaderCellDef mat-sort-header> Schedule Qty </th>
+		  <td mat-cell *matCellDef="let row">
+			<!-- <div> -->
+			  {{ row.MsgQty }}
+			<!-- </div> -->
+		  </td>
+		</ng-container>
+
+		<ng-container matColumnDef="Status">
+		  <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+		  <td mat-cell *matCellDef="let row">
+			<div class="row">
+			  {{ row.CurrentStatus }}&nbsp;&nbsp;
+			  <mat-progress-spinner *ngIf="row.CurrentStatus == 'In-Progress'" color="primary" mode="indeterminate" diameter="20" strokeWidth="2"></mat-progress-spinner>
+			</div>
+		  </td>
+		</ng-container>
+
+		<!-- Actions -->
+		<ng-container matColumnDef="Actions">
+		  <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+		  <td mat-cell *matCellDef="let row">
+			<button type="submit" class="btn btn-sds-submit"
+					[disabled]="row.CurrentStatus !='QUEUED' && row.CurrentStatus !='No Data Found'"
+					mat-raised-button (click)="SendMessageConfigurationDetails(row)">
+			  <mat-icon> send </mat-icon> Send
+			</button>
+		  </td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumnsForApi"></tr>
+		<tr mat-row class="example-element-row" *matRowDef="let row; columns: displayedColumnsForApi;"></tr>
+	  </table>
+
+	  <mat-progress-spinner *ngIf="isLoading" class="spin" color="primary" mode="indeterminate" diameter="40" strokeWidth="5"></mat-progress-spinner>
+
+	  <div *ngIf="!DataSource.data.length && !isLoading">
+		<h6 class="noRecordData"> No Record Found </h6>
+	  </div>
+
+	  <mat-paginator #paginator [pageSize]="100" [pageSizeOptions]="[150,200,250,300]"></mat-paginator>
+
+	  <!-- Modal -->
+	  <ng-template id="openModel" #openModalData>
+		<div class="modal-header">
+		  <h4 class="modal-title" *ngIf="isEdit === false">
+			<b> Create Group </b>
+		  </h4>
+		  <h4 class="modal-title" *ngIf="isEdit === true">
+			<b> Edit Group </b>
+		  </h4>
+		  <a class="" style="float: right;" (click)="onCancel()">
+			<span aria-hidden="true">
+			  <i class="fa fa-times SBModalclose"></i>
+			</span>
+		  </a>
+		</div>
+		<div class="modal-body cons-info">
+
+		  <div class="row col-md-12">
+
+			<!-- Group Name -->
+			<div class="col-md-3" *ngIf="isEdit === false">
+			  <mat-form-field class="searchField" >
+				<input type="text" matInput placeholder="Group Name" name="GroupName" [(ngModel)]="GroupName" #GN="ngModel" autocomplete="off" required />
+				<mat-error *ngIf="GN.errors?.required && GN.touched">
+				  Group Name cannot blank
+				</mat-error>
+			  </mat-form-field>
+			</div>
+
+			<div class="col-md-3" *ngIf="isEdit === true">
+			  <mat-form-field class="searchField" >
+				<input type="text" matInput placeholder="Group Name" name="GroupName" [(ngModel)]="GroupName" autocomplete="off" disabled />
+			  </mat-form-field>
+			</div>
+
+			<div class="col-md-9 kt-margin-bottom-10-mobile">
+			  <div class="kt-form__control">
+				<mat-form-field class="example-full-width">
+				  <input type="text" placeholder="Select Distributors" matInput [formControl]="myControlSelectDistributors"
+						  [matAutocomplete]="autoSelectDistributorsTemplate" (ngModelChange)="onChangeSelectDistributors()">
+				</mat-form-field>
+				<mat-autocomplete #autoSelectDistributorsTemplate="matAutocomplete" [displayWith]="displayFnDistributor">
+				  <mat-option *ngFor="let option of filteredSelectDistributorOptions | async" [value]="Distributors">
+					<mat-checkbox [checked]="option.selected" (change)="optionClicked($event, option)" (click)="$event.stopPropagation()">
+					  {{ option.DistributorName }} ({{ option.JDEDistributorCode }})
+					</mat-checkbox>
+				  </mat-option>
+				</mat-autocomplete>
+			  </div>
+			</div>
+
+			<!-- Select Template -->
+			<div class="col-md-4 col-sm-12">
+			  <form>
+				<mat-form-field class="example-full-width">
+				  <mat-label> Select Template </mat-label>
+				  <mat-select placeholder="Select Template" name="SelectTemplate" [(ngModel)]='SelectTemplate'>
+					<mat-option *ngFor="let option of DDLTemplateList" [value]="option.TemplateId">
+					  {{ option.TemplateName }}
+					</mat-option>
+				  </mat-select>
+				</mat-form-field>
+			  </form>
+			</div>
+
+		  </div>
+
+		</div>
+		  <div class="modal-footer">
+			<!-- Add -->
+			<button type="submit" title="Submit" class="btn btn-sm btn-info commonFontSize" *ngIf="isEdit === false" (click)="onSaveSBCDistributorGroupMappingAddEdit()">
+			  Submit
+			</button>
+			<!-- Edit/Update -->
+			<button type="submit" title="Update" class="btn btn-sm btn-info commonFontSize" *ngIf="isEdit === true" (click)="onSaveSBCDistributorGroupMappingAddEdit()">
+			  Update
+			</button>
+			<button class='btn btn-sds-reset commonFontSize' mat-raised-button (click)="onClear()" *ngIf="isEdit === false">Clear</button>
+			<button class='btn btn-sds-reset commonFontSize' mat-raised-button (click)="onCancel()">Cancel</button>
+		  </div>
+	  </ng-template>
+
+	  </kt-portlet-body>
+	</kt-portlet>
+
+  </div>

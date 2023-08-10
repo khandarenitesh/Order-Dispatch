@@ -1,0 +1,129 @@
+<kt-portlet>
+    <div class="card">
+        <div class="card-header">
+            <h5> <b> Update Distributor Contact Details	 </b> </h5>
+        </div>
+        <kt-portlet-body>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Distributor List with DistributorId-->
+                    <div class="col">
+                        <mat-form-field style="width: 35%;">
+                            <mat-label> Select Distributor <span class="starColor"> * </span> </mat-label>
+                            <input type="text" placeholder="Select Distributor" matInput [formControl]="myControlDistributor" [matAutocomplete]="auto" name="SelectedDistributor" [(ngModel)]="SelectedDistributor" (ngModelChange)="onChangeBindDistributorList(SelectedDistributor)">
+                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnDistributor">
+                                <mat-option *ngFor="let option of filteredDistributorOptions | async" [value]="option">
+                                    {{ option.DistributorName }} ({{ option.JDEDistributorCode }})
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label> Mobile No. : </mat-label>
+                            <input type="text" matInput readonly="true"> {{ MobileNo }}
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label> Emergency Contact No. :</mat-label>
+                            <input type="text" matInput readonly="true"> {{ EmergencyContactNo }}
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label> Phone No. :</mat-label>
+                            <input type="text" matInput readonly="true"> {{ PhoneNo }}
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field style="width: 20%;">
+                            <mat-label> EmailId. :</mat-label>
+                            <input type="text" matInput readonly="true"> {{ Email }}
+                        </mat-form-field>
+                        <a class="afaEdit" (click)="openUpdateContact(ContactContent);" title="Edit"><i class="fa fa-edit"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col"> </div>
+                    <div class="col"> </div>
+                    <div class="col"> </div>
+                    <div class="col">
+                        <button mat-raised-button color="accent" class="clear-buttton" (click)="ClearModel()" type="button"> Clear
+					</button>
+                    </div>
+                </div>
+                <mat-progress-spinner *ngIf="isLoading" class="spin" color="primary" mode="indeterminate" diameter="40" strokeWidth="5"></mat-progress-spinner>
+            </div>
+        </kt-portlet-body>
+    </div>
+</kt-portlet>
+<!-- popup window For ContactContent -->
+<div class="col-xl-12">
+    <ng-template #ContactContent let-c="close" let-b="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">
+                {{ loadingTitle }}
+            </h4>
+            <button type="button" class="close" aria-label="Close" (click)="b('Cross click')">
+				<span aria-hidden="true">&times;</span>
+			</button>
+        </div>
+        <!-- START - MODAL BODY -->
+        <div class="modal-body">
+            <div class="row">
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Mobile No." name="SelectedMobileNo" #MobileNumber="ngModel" [(ngModel)]="SelectedMobileNo" autocomplete="off" (keypress)="numberOnly($event)" pattern="[7-9]{1}[0-9]{9}" maxlength="12" required>
+                        <mat-error *ngIf="MobileNumber.errors?.pattern">
+                            Please Enter valid Mobile No.
+                        </mat-error>
+                        <mat-error *ngIf="MobileNumber.errors?.required">
+                            Please Enter Mobile No.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Emergency Contact No." name="SelectedEmergencyContactNo" #EmergencyNo="ngModel" [(ngModel)]="SelectedEmergencyContactNo" autocomplete="off" required>
+                        <mat-error *ngIf="EmergencyNo.errors?.required">
+                            Please Enter Emergency Contact No.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Email Address." name="SelectedEmail" #Email="ngModel" [(ngModel)]="SelectedEmail" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+                        <mat-error *ngIf="Email.errors?.pattern">
+                            Invalid emailId.
+                        </mat-error>
+                        <mat-error *ngIf="Email.errors?.required">
+                            Please Enter EmailId.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Phone No." name="SelectedPhoneNo" #PhoneNumber="ngModel" [(ngModel)]="SelectedPhoneNo" autocomplete="off" (keypress)="numberOnly($event)" maxlength="10">
+                    </mat-form-field>
+                </div>
+                <div class="col"></div>
+                <div class="col-md-12 modal-footer">
+                    <button type="submit" mat-raised-button color="primary" (click)="UpdateDistributorContactDetails()">
+						Update
+					</button>
+                    <button type="button" mat-raised-button color="warn" (click)="c('Close click')">Close</button>
+                </div>
+            </div>
+        </div>
+        <!-- END - MODAL BODY -->
+    </ng-template>
+</div>

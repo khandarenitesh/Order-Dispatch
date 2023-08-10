@@ -1,0 +1,283 @@
+<kt-portlet>
+	<kt-portlet-body>
+	  <div class="row">
+		<div class="col-md-3 col-sm-12 middleDiv">
+		  <kt-portlet>
+			<div id="boxshadow">
+			  <div class="bg-white">
+				<div class="row" align="center">
+				  <div class="commonClass col-md-12 text-center">
+					<span> Consumers </span>
+				  </div>
+				  <div class="col-md-6 text-center">
+					<a class="SB-block-Count a-link-color" (click)="ShowConsList('All')">
+					  <h5>{{_messageSentConsumerCount.SBCCount? _messageSentConsumerCount.SBCCount:0}}</h5>
+					</a>
+					<span class="SB-block-Desc"> With Mobile Number </span>
+				  </div>
+				  <div class="col-md-6 text-center">
+					<a class="SB-block-Count a-link-color">
+					  <h5 class="commonFontSize"><u>{{_messageSentConsumerCount.DuplicateMobCount? _messageSentConsumerCount.DuplicateMobCount:0}}</u></h5>
+					</a>
+					<span> With Duplicate Number </span>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </kt-portlet>
+		</div>
+		<div class="col-md-6 col-sm-12 middleDiv">
+		  <kt-portlet>
+			<div id="boxshadow">
+			  <div class="bg-white">
+				<div class="row" align="center">
+				  <div class="CustBlockHeader col-md-12 text-center">
+					<span> Message Sent:- </span>
+					<span class="commonFontSize"><a class="SB-block-Count a-link-color" (click)="ShowConsList('Sent')"><u>{{_messageSentConsumerCount.Messagesentcount?
+					  _messageSentConsumerCount.Messagesentcount:0}}</u></a></span>
+					  <!-- <mat-icon class="mat-icon notranslate material-icons" style="color: green;" *ngIf="_messageSentConsumerCount.CheckMsgSent==0">check</mat-icon> -->
+					  <mat-icon class="mat-icon notranslate material-icons" style="color: green; padding-left: 2%;" *ngIf="_messageSentConsumerCount.CheckMsgSent=='0'">check_circle</mat-icon>
+				  </div>
+				  <div class="col text-center">
+					<a class="SB-block-Count a-link-color" (click)="ShowConsList('Interested')">
+					  <h5><u>{{_messageSentConsumerCount.Interestedcount? _messageSentConsumerCount.Interestedcount:0}}</u></h5>
+					</a>
+					<span> Interested Count </span>
+				  </div>
+				  <div class="col text-center">
+					<a class="SB-block-Count a-link-color" (click)="ShowConsList('NotInterested')">
+					  <h5><u>{{_messageSentConsumerCount.NotIntrestedCount? _messageSentConsumerCount.NotIntrestedCount:0}}</u></h5>
+					</a>
+					<span> Not Interested </span>
+				  </div>
+				  <div class="col text-center">
+					<a class="SB-block-Count a-link-color" (click)="ShowConsList('ARBDone')">
+					  <h5><u>{{_messageSentConsumerCount.ARBDone? _messageSentConsumerCount.ARBDone:0}}</u></h5>
+					</a>
+					<span> ARB Done </span>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </kt-portlet>
+		</div>
+		<div class="col-md-3 col-sm-12 middleDiv">
+		  <kt-portlet>
+			<div id="boxshadow">
+			  <div class="bg-white">
+				<div class="row" align="center">
+				  <div class="commonClass col-md-12 text-center">
+					<span> Consumer Contacted </span>
+				  </div>
+				  <div class="col-md-6 text-center">
+					<a class="SB-block-Count a-link-color" (click)="ShowConsList('Read')">
+					  <h5 class="commonFontSize"><u>{{_messageSentConsumerCount.ReadCount? _messageSentConsumerCount.ReadCount:0}}</u></h5>
+					</a>
+					<span> Message Read </span>
+				  </div>
+				  <div class="col-md-6 text-center">
+					<a class="SB-block-Count a-link-color" (click)="ShowConsList('ReadContacted')">
+					  <h5 class="commonFontSize"><u>{{_messageSentConsumerCount.ReadContactedCount? _messageSentConsumerCount.ReadContactedCount:0}}</u></h5>
+					</a>
+					<span> Against Contacted </span>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </kt-portlet>
+		</div>
+	  </div>
+	</kt-portlet-body>
+  </kt-portlet>
+
+
+  <kt-portlet>
+	<kt-portlet-body>
+	  <div class="col-md-12" style="width: 100%;">
+		<mat-table [dataSource]="DataSourceInterestedCount" matSort>
+		  <ng-container matColumnDef="SrNo">
+			<mat-header-cell *matHeaderCellDef>Sr.No</mat-header-cell>
+			<mat-cell *matCellDef="let row; let SrNo = index;"> {{SrNo + 1}} </mat-cell>
+		  </ng-container>
+
+		  <ng-container matColumnDef="Status">
+			<mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
+			<mat-cell *matCellDef="let row"> {{row.StatusName?row.StatusName:'-'}}</mat-cell>
+		  </ng-container>
+
+		  <ng-container matColumnDef="Read">
+			<mat-header-cell *matHeaderCellDef>Read</mat-header-cell>
+			<mat-cell *matCellDef="let row"> {{row.ReadCnt?row.ReadCnt:'-'}}</mat-cell>
+		  </ng-container>
+
+		  <ng-container matColumnDef="Interested">
+			<mat-header-cell *matHeaderCellDef>Interested</mat-header-cell>
+			<mat-cell *matCellDef="let row"> {{row.InterestedCnt?row.InterestedCnt:'-'}}</mat-cell>
+		  </ng-container>
+
+		  <mat-header-row *matHeaderRowDef="coloumns;sticky: true"></mat-header-row>
+		  <mat-row *matRowDef="let row; columns: coloumns;">
+		  </mat-row>
+		</mat-table>
+		<div *ngIf="!DataSourceInterestedCount.data.length">
+		  <h6 class="noRecordData"> No Record Found </h6>
+		</div>
+		<mat-paginator #paginator2 [pageSize]="10" [pageSizeOptions]="[10, 15, 20, 30, 50]">
+		</mat-paginator>
+	  </div>
+	</kt-portlet-body>
+  </kt-portlet>
+
+
+  <kt-portlet>
+	<kt-portlet-header [title]="'Suraksha Campaign Consumer List'">
+	  <ng-container ktPortletTools>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<mat-form-field class="searchField">
+		  <span class="GlobalSearch" matPrefix>
+			<mat-icon>search</mat-icon> &nbsp;
+		  </span>
+		  <input matInput (keyup)="applyFilter($event.target.value)" name="search" [(ngModel)]="search"
+			placeholder="Search">
+		</mat-form-field>
+	  </ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+	  <ng-container>
+		<div class="row">
+		  <div class="col-md-3 col-lg-2 col-sm-12">
+			<mat-form-field>
+			  <input style="width:100px;padding-top:5px;font-size: 14px;" container='body' matInput
+				placeholder="Select From Date" [(ngModel)]="FromDate" name="FromDate" ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()"
+				readonly>
+			  <mat-icon style="float:right;height:20px;width:20px;" (click)="d1.toggle()" svgIcon="calendar"
+				title="Calendar"></mat-icon>
+			</mat-form-field>
+		  </div>
+		  <div class="col-md-3 col-lg-2 col-sm-12">
+			<mat-form-field>
+			  <input style="width:100px;padding-top:5px;font-size: 14px;" container='body' matInput
+				placeholder="Select To Date" name="Todate" [(ngModel)]="ToDate" ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()"
+				readonly>
+			  <mat-icon style="float:right;height:20px;width:20px;" (click)="d2.toggle()" svgIcon="calendar"
+				title="Calendar"></mat-icon>
+			</mat-form-field>
+		  </div>
+		  <div class="col-md-2 col-lg-2 col-sm-12">
+			<button style="margin-bottom: 7px;font-size: 14px;" type="submit" class="btn btn-sm btn-info" (click)="GetConsumerList()">
+			  Submit
+			</button>
+		  </div>
+		</div>
+	  </ng-container>
+
+	  <div class="col-md-12" style="width: 100%;" #TABLE>
+		  <table mat-table [dataSource]="DataSource" #table matSort #sort1="matSort" style="width: 100%;">
+		  <!-- ConsumerNo Column -->
+		  <ng-container matColumnDef="ConsumerNo">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Consumer No</th>
+			<td mat-cell *matCellDef="let row"> {{row.ConsumerNo?row.ConsumerNo:'-'}}</td>
+		  </ng-container>
+		  <!-- ItemFlag Column -->
+		  <ng-container matColumnDef="ConsumerName">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Consumer Name</th>
+			<td mat-cell *matCellDef="let row"> {{row.ConsumerName}} </td>
+		  </ng-container>
+
+		  <!-- Progress Column -->
+		  <ng-container matColumnDef="MobileNo">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> Contact No</th>
+			<td mat-cell *matCellDef="let row"> {{row.MobileNo}} </td>
+		  </ng-container>
+
+		  <ng-container matColumnDef="MessageStatus">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Message Status</th>
+			<td mat-cell *matCellDef="let row"> {{row.MessageStatus}} </td>
+		  </ng-container>
+
+		  <ng-container matColumnDef="IsReplayReceivedDate">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Reply Date</th>
+			<td mat-cell *matCellDef="let row" class="text-center">
+			  {{row.IsReplayReceivedDate?row.IsReplayReceivedDate:'-'}}
+			</td>
+		  </ng-container>
+		  <ng-container matColumnDef="StatusName">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+			<td mat-cell *matCellDef="let row" class="text-center">
+			  {{row.StatusName}}
+			</td>
+		  </ng-container>
+		  <ng-container matColumnDef="Feedback">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Feedback</th>
+			<td mat-cell *matCellDef="let row" class="text-center">
+			  {{row.ConsumerFeedback | slice: 0:20}} {{ row.ConsumerFeedback!== null ? (row.ConsumerFeedback.length > 20 ? '....' : '') : '' }}
+			  <mat-icon class="mat-icon notranslate material-icons mat-icon-info" [ngClass]="'alert--'+context"
+			  *ngIf="row.ConsumerFeedback && row.ConsumerFeedback.length > 20"
+			   ngbTooltip="{{row.ConsumerFeedback}}" tooltipClass="kt-tooltip">info</mat-icon>
+			</td>
+		  </ng-container>
+		  <ng-container matColumnDef="ConnectionUpdate">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Update Status </th>
+			<td mat-cell *matCellDef="let row" class="text-center">
+			  <a class="btn btn-label-primary btn-bold btn-sm btn-icon-h"
+				*ngIf="row.ConnectionReleasedDate==null || row.ConnectionReleasedDate==''"
+				(click)="open(content,row)">Update Status</a>
+			  {{row.ConnectionReleasedDate}}
+			</td>
+		  </ng-container>
+		  <ng-container matColumnDef="UserRemark">
+			<th mat-header-cell *matHeaderCellDef >User Remark</th>
+			<td mat-cell *matCellDef="let row" class="text-center">
+			   {{row.UserReply | slice: 0:35}} {{ row.UserReply!== null ? (row.UserReply.length > 35 ? '....' : '') : '' }}
+			  <mat-icon class="mat-icon notranslate material-icons mat-icon-info" [ngClass]="'alert--'+context" *ngIf="row.UserReply && row.UserReply.length > 35"
+			   ngbTooltip="{{row.UserReply}}" tooltipClass="kt-tooltip">info</mat-icon>
+			  </td>
+		  </ng-container>
+
+		  <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+		  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		</table>
+		<div *ngIf="!DataSource.data.length">
+		  <h6 class="noRecordData"> No Record Found </h6>
+		</div>
+		<mat-paginator #paginator [pageSize]="15" [pageSizeOptions]="[10, 15, 20, 30, 50]">
+		</mat-paginator>
+		<mat-progress-spinner color="primary" *ngIf="isLoading" mode="indeterminate" class="spin" diameter="40" strokeWidth="5">
+		</mat-progress-spinner>
+	  </div>
+
+	</kt-portlet-body>
+  </kt-portlet>
+
+
+  <div class="col-xl-12">
+	<ng-template #content let-c="close" let-d="dismiss">
+	  <div class="modal-header">
+		<h4 class="modal-title">{{loadingTitle}}</h4>
+		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	  </div>
+	  <div class="modal-body">
+		<div class="col-md-12">
+		  <mat-form-field>
+			<mat-label> Select Call Status </mat-label>
+			<mat-select placeholder="Select Call Status" [(ngModel)]='CallStatus' name="CallStatus" required>
+			  <mat-option *ngFor="let status of CallStatusList" [value]="status.StatusName">
+				{{status.StatusName}}
+			  </mat-option>
+			</mat-select>
+		  </mat-form-field>
+		  <mat-form-field class="example-full-width">
+			<mat-label>Consumer Feedback</mat-label>
+			<textarea matInput placeholder="Consumer Feedback" [(ngModel)]="ConsumerFeedback" rows="3"
+			  required></textarea>
+		  </mat-form-field>
+		  <div class="col-md-12 modal-footer">
+			<button type="submit" mat-raised-button color="primary" (click)="UpdateStatus()">Submit</button>
+			<button type="button" mat-raised-button color="warn" (click)="c('Close click')">Close</button>
+		  </div>
+		</div>
+	  </div>
+	</ng-template>
+  </div>

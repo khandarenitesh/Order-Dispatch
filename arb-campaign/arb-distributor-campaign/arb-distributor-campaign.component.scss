@@ -1,0 +1,89 @@
+.SB-block-Count {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #212123;
+    //display: block;
+    text-align: center;
+  }
+
+
+  .a-link-color {
+    color: #335de7 !important;
+    cursor: pointer !important;
+  }
+
+  h5 {
+    color: #335de7 !important;
+    margin-bottom: .1rem;
+  }
+
+  .SB-block-Desc {
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.87);
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    display: block;
+    text-align: center;
+  }
+
+  .mat-column-ConsumerNo {
+    flex: 0 0 8%;
+    max-width: none !important;
+  }
+
+  .mat-column-ConsumerName {
+    flex: 0 0 15%;
+    max-width: none;
+  }
+
+  .mat-column-MobileNo {
+    flex: 0 0 10%;
+  }
+  .mat-column-MessageStatus {
+    flex: 0 0 9%;
+  }
+
+  .mat-column-IsReplayReceivedDate {
+    flex: 0 0 6%;
+  }
+
+  .mat-column-StatusName {
+    flex: 0 0 12%;
+  }
+
+  .mat-column-Feedback {
+    flex: 0 0 12%;
+  }
+
+  .mat-column-ConnectionUpdate {
+    flex: 0 0 10%;
+  }
+
+  .mat-column-UserRemark {
+    flex: 0 0 18%;
+  }
+
+
+  .spin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height:100%;
+    z-index: 1;
+    margin: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .mat-icon {
+    color: #335de7;
+  }
+
+  ::ng-deep .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
+    opacity: 0.54 !important;
+    transform: translateY(0px) !important;
+  }

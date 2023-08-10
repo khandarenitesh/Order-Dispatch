@@ -1,0 +1,64 @@
+<kt-portlet>
+    <ng-container>
+        <div class="row headerRowPadding">
+            <div class="col-md-4 col-sm-12">
+                <h5 class="commonFontSize">
+                    <b> Area Sequence List </b> &nbsp;
+                </h5>
+            </div>
+            <div class="col-md-4 col-sm-12">
+            </div>
+        </div>
+        <div>
+            <hr class="hrHeaderMargin">
+        </div>
+    </ng-container>
+    <kt-portlet-body>
+        <div class="table-responsive">
+            <div class="col-md-12">
+                <table mat-table [dataSource]="DataSource" matSort>
+                    <ng-container matColumnDef="SrNo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sr.No </th>
+                        <td mat-cell *matCellDef="let row; let SrNo = index;"> {{SrNo + 1}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="AreaRefNo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Area Reference No. </th>
+                        <td mat-cell *matCellDef="let row;"> {{row.AreaRefNo}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="AreaName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Area Name </th>
+                        <td mat-cell *matCellDef="let row;"> {{row.AreaName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="ConsCnt">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Area Count. </th>
+                        <td mat-cell *matCellDef="let row;"> {{row.ConsCnt}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="AreaSequenceUpdate">
+                        <th mat-header-cell *matHeaderCellDef>Sequence No.</th>
+                        <td mat-cell *matCellDef="let row; let i = index;">
+                            <input type="text" placeholder="Sequence No" name="SequenceNo" (keypress)="numberOnly($event)" (change)="SequenceNoExist(row)" [(ngModel)]="row.AreaSeqNo" autocomplete="off">
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+                </table>
+                <div *ngIf="!DataSource.data.length">
+                    <h6 class="noRecordData"> No Record Found </h6>
+                </div>
+                <!-- <mat-paginator [pageSize]="10" [pageSizeOptions]="[15, 20, 30, 50]"></mat-paginator> -->
+                <mat-progress-spinner color="primary" *ngIf="isLoading" mode="indeterminate" class="spin" diameter="40" strokeWidth="4">
+                </mat-progress-spinner>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col">
+                    <button mat-raised-button class="cancel-buttton" type="button" (click)="ClearData()"> Cancel</button>
+                    <button mat-raised-button color="primary" type="submit" (click)="UpdateAreaSequenceNo()"> Submit </button>
+                </div>
+            </div>
+        </div>
+    </kt-portlet-body>
+</kt-portlet>

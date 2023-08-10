@@ -1,0 +1,56 @@
+<kt-portlet>
+  <ng-container>
+    <div class="row headerRowPadding">
+      <div class="col-md-4 col-sm-12">
+        <h5 class="commonFontSize">
+          <b> ARB Campaign Upload </b> &nbsp;
+        </h5>
+      </div>
+      <div class="col-md-4 col-sm-12">     
+      </div>
+    </div>
+    <div>
+      <hr class="hrHeaderMargin">
+    </div>
+  </ng-container>
+
+  <kt-portlet-body>
+    <div class="row">
+
+      <!-- Distributor Name -->
+      <div class="col-md-3 col-sm-12">
+        <form>
+          <mat-form-field class="example-full-width">
+            <mat-label> Select Distributor <span class="starColor"> * </span> </mat-label>
+            <input type="text" placeholder="Select Distributor" matInput [formControl]="myControlDistributor"
+                    [matAutocomplete]="auto" name="SelectedDistributor" [(ngModel)]="SelectedDistributor">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnDistributor">
+              <mat-option *ngFor="let option of filteredDistributorOptions | async" [value]="option">
+                {{ option.DistributorName }} ({{ option.JDEDistributorCode }})
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </div>
+
+      <div class="col-sm-6">
+        
+        <label for="" class="vertical-label text-left"> Select File </label>&nbsp; <span class="starColor"> * </span> &nbsp;
+        <input #fileInput type="file" (change)="onChange()"
+               accept="xls,.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+        <mat-hint> Accepts only xls or .xlsx </mat-hint>
+        <button type="submit" class="btn btn-sm btn-info" (click)="uploadExcelFile()">
+            Upload
+        </button>
+
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+          <mat-progress-spinner color="primary" mode="indeterminate" diameter="40" strokeWidth="5"></mat-progress-spinner>
+        </div>
+        
+      </div>
+      
+    </div>
+
+  </kt-portlet-body>
+
+</kt-portlet>
