@@ -1,0 +1,85 @@
+
+
+insert into CFA.tblStockistMaster(StockistNo,StockistName,StockistPAN,Emailid,MobNo,StockistAddress,CityCode,
+GSTNo,Pincode,DLNo,DLExpDate,FoodLicNo,FoodLicExpDate,IsActive,Addedby,AddedOn,LastUpdatedOn)
+
+select StockistNo,StockistName,StockistPAN,Emailid,MobNo,StockistAddress,CityCode,
+GSTNo,Pincode,DLNo,DLExpDate,FoodLicNo,FoodLicExpDate,'Y',1,'2023-04-11','2023-04-11' from [CFA].[tblStockistMasterTemp]
+
+
+select * from CFA.tblStockiestBankDetails
+
+shift + alt => ||||
+
+
+
+
+
+insert into CFA.tblStockistMaster(StockistNo,StockistName,StockistPAN,Emailid,MobNo,StockistAddress,CityCode,
+GSTNo,Pincode,DLNo,DLExpDate,FoodLicNo,FoodLicExpDate,IsActive,Addedby,AddedOn,LastUpdatedOn)
+
+select StockistNo,StockistName,StockistPAN,Emailid,MobNo,StockistAddress,CityCode,
+GSTNo,Pincode,DLNo,DLExpDate,FoodLicNo,FoodLicExpDate,'Y',1,'2023-04-11','2023-04-11' from [CFA].[tblStockistMasterTemp]
+
+
+select * from CFA.tblStockiestBankDetails
+select *  from [CFA].[tblStockistMasterTemp]
+
+
+insert into CFA.tblStockiestBankDetails(StockistId, BankId,IFSCCode,AccountNo)
+select StockistId,BankId,IFSCCode,BankAccountNo from [CFA].[tblStockistMasterTemp]
+
+
+insert into CFA.tblStockistMaster(StockistNo,StockistName,StockistPAN,Emailid,MobNo,StockistAddress,CityCode,
+GSTNo,Pincode,DLNo,DLExpDate,FoodLicNo,FoodLicExpDate,IsActive,Addedby,AddedOn,LastUpdatedOn)
+
+select StockistNo,StockistName,StockistPAN,Emailid,MobNo,StockistAddress,CityCode,
+GSTNo,Pincode,DLNo,DLExpDate,FoodLicNo,FoodLicExpDate,'Y',1,'2023-04-11','2023-04-11' from [CFA].[tblStockistMasterTemp]
+
+
+select * from CFA.tblStockiestBankDetails
+select *  from [CFA].[tblStockistMasterTemp]
+
+
+insert into CFA.tblStockiestBankDetails(StockistId,BranchId BankId,IFSCCode,AccountNo)
+select StockistId,BankId,IFSCCode,BankAccountNo from [CFA].[tblStockistMasterTemp]
+
+/****** Script for SelectTopNRows command from SSMS  ******/
+--SELECT * FROM [CFADB].[CFA].[tblStockiestBankDetails] where BankId=147
+
+--select * from CFA.tblGeneralMaster where CategoryName='Bank' and MasterName Like '%SANGALI URBAN CO. OP. BANK LTD%'
+
+
+select * from [CFADB].[CFA].[tblCit
+
+
+
+
+
+
+-- Main Table
+insert into CFA.tblStockistMaster(StockistNo,StockistName,StockistPAN,Emailid,MobNo,StockistAddress,CityCode,
+GSTNo,Pincode,DLNo,DLExpDate,FoodLicNo,FoodLicExpDate,IsActive,Addedby,AddedOn,LastUpdatedOn)
+
+--Temp Table
+select a.StockistNo,a.StockistName,a.StockistPAN,a.Emailid,a.MobNo,a.StockistAddress,a.CityCode,
+a.GSTNo,a.Pincode,a.DLNo,a.DLExpDate,a.FoodLicNo,a.FoodLi	cExpDate,'Y',1,'2023-07-03','2023-07-03' 
+from [CFA].[tblStockistMasterImport_03072023] a left outer join CFA.tblStockistMaster ss on a.StockistNo=ss.StockistNo
+where ss.StockistId is null
+
+
+
+
+select b.StockistId, s.StockistId,s.BankId,s.IFSCCode,s.BankAccountNo from [dbo].[stkimport240723] s
+left outer join CFA.tblStockiestBankDetails  b on s.StockistId=b.StkBankId
+where b.StockistId is null
+order by b.StockistId desc
+
+
+----insert into CFA.tblStockiestBankDetails(StockistId, BankId,IFSCCode,AccountNo)
+--select s.StockistId,s.BankId,s.IFSCCode,s.BankAccountNo 
+--from [dbo].[stkimport240723] s left outer join CFA.tblStockiestBankDetails b on s.bankaccountno=b.AccountNo
+--where b.AccountNo is null
+
+
+--select * from CFA.tblStockistMaster where StockistId=1320
